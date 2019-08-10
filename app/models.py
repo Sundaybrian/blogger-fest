@@ -25,7 +25,9 @@ class User(UserMixin,db.Model):
     username=db.Column(db.String(64),unique=True)
     password_hash=db.Column(db.String(128))
     role_id=db.Column(db.Integer,db.ForeignKey('roles.id'))
-    # posts=db.relationship('BlogPost',backref='author',lazy='dynamic')
+
+
+    posts=db.relationship('BlogPost',backref='author',lazy='dynamic')
 
     comments_user=db.relationship('Comment',backref='commenter',lazy="dynamic")
 
@@ -67,7 +69,7 @@ class BlogPost(db.Model):
     title=db.Column(db.String(100))
     text=db.Column(db.Text)
 
-    comments=db.relationship('Comment',backref='user_comment',lazy='dynamic')
+    comments_blog=db.relationship('Comment',backref='blog_comments',lazy='dynamic')
 
     def save_post(self):
         '''
@@ -87,6 +89,32 @@ class BlogPost(db.Model):
 
     def __repr__(self):
         return f'PostID:{self.id}--Date{self.date}--Title{self.title}'    
+
+
+class Comment(db.Model):
+    __tablename__='comments'
+    
+    id=db.Column(db.Integer,primary_key=True)
+    comment_content=db.Column(db.Text)
+    post_id=db.Column(db.Integer,db.ForeignKey('blogposts.id'))
+    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    def save_comment(self):
+        '''
+        Function that saves a new comment
+        '''
+        db.session.add(self)
+        db.session.commit()
+
+    
+    @classmethod
+    def get_comments(cls,post_id):
+        '''
+        Function that fetches a specific post comment
+        '''
+        
+        comments=Comment.query.filter_by(post_id=post_id).all()
+        return comments
 
 
         
