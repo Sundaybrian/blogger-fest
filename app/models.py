@@ -40,6 +40,21 @@ class User(UserMixin,db.Model):
     
     def verify_password(self,password):
         return check_password_hash(self.password_hash,password)
+
+    def save_user(self):
+        '''
+        save instance for a user
+        '''
+        db.session.add(self)
+        db.session.commit()  
+        
+    @classmethod
+    def check_roles(cls,user_id,role_id):
+        get_role=User.query.filter_by(id=user_id).filter_by(role_id=role_id).first()
+        return get_role    
     
     def __repr__(self):
         return f'User {self.username}'    
+
+
+        
