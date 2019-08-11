@@ -88,11 +88,11 @@ class BlogPost(db.Model):
         return posts
 
     @classmethod
-    def get_user_posts(cls,user_id,page):
+    def get_user_posts(cls,user,page):
         '''
         Function that fetches all blog posts for a single writer
         '''
-        posts_user=BlogPost.query.filter_by(user_id=user_id).order_by(BlogPost.date.desc()).paginate(page=page,per_page=5) 
+        posts_user=BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page,per_page=5) 
         return posts_user   
 
     def __repr__(self):

@@ -73,8 +73,8 @@ def user_posts(uname):
     #grab user if he/she exists or return 404
     user=User.query.filter_by(uname=uname).first_or_404()
 
-    #grab posts by the specified user using the backref 
-    posts=BlogPost.get_user_posts(user.id,page)
+    #grab posts by the specified user 
+    posts=BlogPost.get_user_posts(user ,page)
 
     title=f'{uname}-blogposts'
     return render_template('user_blogposts.html',posts=posts,user=user,title=title)
