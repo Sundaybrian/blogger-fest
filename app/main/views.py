@@ -13,9 +13,22 @@ def index():
     '''
     view root function that returns index page and its data
     '''
-    return render_template('index.html',title='Home of the brave')
+    posts=BlogPost.query.all()
+    return render_template('index.html',title='Home of the brave',posts,user=current_user)
 
 
+
+@main.route('/user/<uname>')
+def profile():
+    '''
+    view function to see a single user profile
+    '''
+    user=User.query.filter_by(username=uname).first()
+    if user is None:
+        abort(404)
+    return render_template('profile/profile.html',user=user)
+
+    
 @main.route('/user/<uname>/profile_update',methods=['GET','POST'])
 @login_required
 def profile_update(uname):
