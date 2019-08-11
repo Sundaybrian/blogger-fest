@@ -8,7 +8,7 @@
         <img src="{{url_for('static',filename='photos/'+user.profile_image)}}" alt="">
         {% else%}
         <p>No profile pic</p>
-        {%end if%}
+        {%endif%}
         {% if user==current_user%}
         
         <div class="card-footer">

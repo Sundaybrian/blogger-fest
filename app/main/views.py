@@ -14,12 +14,12 @@ def index():
     view root function that returns index page and its data
     '''
     posts=BlogPost.query.all()
-    return render_template('index.html',title='Home of the brave',posts,user=current_user)
+    return render_template('index.html',title='Home of the brave',posts=posts,user=current_user)
 
 
 
 @main.route('/user/<uname>')
-def profile():
+def profile(uname):
     '''
     view function to see a single user profile
     '''

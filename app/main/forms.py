@@ -3,7 +3,7 @@ from wtforms import StringField,TextAreaField,SubmitField
 
 #for the picture upload
 from flask_wtf.file import FileField,FileAllowed
-
+from wtforms import ValidationError
 from wtforms.validators import DataRequired,Email
 from ..models import User
 
