@@ -141,3 +141,19 @@ def update_post(blog_post_id):
 
     return render_template('create_post',title='Update Post',form=form)    
 
+
+@main.route('/post/<int:blog_post_id>/delte',methods=['GET','POST'])
+@login_required
+def delete_post(blog_post_id):
+    '''
+    View function to delete a post
+    '''
+    blog_post=BlogPost.query.get_or_404(blog_post_id)
+    if blog_post.author != current_user:
+        abort(403)
+        
+    db.session.delete(blog_post)
+    db.session.commit()
+    flash('Blog Deleted')
+    
+    return redirect(url_for('main.index'))
