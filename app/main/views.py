@@ -112,11 +112,11 @@ def single_blogpost(blog_post_id):
 
 
 
-@main.route('/post/<int:blog_post_id/update>',methods=['GET','POST'])
+@main.route('/post/<int:blog_post_id>/update',methods=['GET','POST'])
 @login_required
 def update_post(blog_post_id):
     '''
-    View function to delete a blogpost
+    View function to update a blogpost
     '''
     blog_post=BlogPost.query.get_or_404(blog_post_id)
 
@@ -134,7 +134,8 @@ def update_post(blog_post_id):
         flash('Blog Updated')
         return redirect(url_for('main.single_blogpost',blog_post_id=blog_post.id))
 
-    elif request.method='GET':
+    elif request.method=='GET':
+
         #fill the form with the post details if user has not editted 
         form.title.data=blog_post.title
         form.title.text=blog_post.text
@@ -142,7 +143,7 @@ def update_post(blog_post_id):
     return render_template('create_post',title='Update Post',form=form)    
 
 
-@main.route('/post/<int:blog_post_id>/delte',methods=['GET','POST'])
+@main.route('/post/<int:blog_post_id>/delete',methods=['GET','POST'])
 @login_required
 def delete_post(blog_post_id):
     '''

@@ -14,7 +14,7 @@ class PostForm(FlaskForm):
     Class to create a form for creating a blog
     '''
     title=StringField('Blog Title',validators=[DataRequired()])
-    content=TextAreaField('Blog Content',validators=[DataRequired()])
+    text=TextAreaField('Blog Content',validators=[DataRequired()])
     submit=SubmitField('Submit Post')
 
 class CommentForm(FlaskForm):
