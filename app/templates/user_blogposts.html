@@ -8,7 +8,7 @@
     
     <div class="user_blogposts.items">
         {% for post in posts.items %}
-        <h2><a href="{{url_for('main.single_blogpost',blogpost_id=post.id)}}">{{post.title}}</a></h2>
+        <h2><a href="{{url_for('main.single_blogpost',blog_post_id=post.id)}}">{{post.title}}</a></h2>
         <p>
             Author<a href="{{url_for('main.user_post',uname=post.author.username)}}">{{post.author}}</a>
         </p>

@@ -102,13 +102,42 @@ def create_post():
 
     return render_template('create_post.html',form=form)
 
-@main.route('/post/<int:blogpost_id>')
-def single_blogpost(blogpost_id):
+@main.route('/post/<int:blog_post_id>')
+def single_blogpost(blog_post_id):
     '''
     View function to view one blog post
     '''
-    blog_post=BlogPost.query.get_or_404(blogpost_id)
+    blog_post=BlogPost.query.get_or_404(blog_post_id)
     return render_template('blogpost.html',title=blog_post.title,blog_post=blog_post)    
 
 
+
+@main.route('/post/<int:blog_post_id/update>',methods=['GET','POST'])
+@login_required
+def update_post(blog_post_id):
+    '''
+    View function to delete a blogpost
+    '''
+    blog_post=BlogPost.query.get_or_404(blog_post_id)
+
+    if blog_post.author !=current_user:
+        #if the viewer is not the owner of the post
+        #dont allow
+        abort(403)
+    
+    form=PostForm()
+    if form.validate_on_submit():
+        blog_post.title=form.title.data
+        blog_post.text=form.text.data
+
+        db.session.commit()
+        flash('Blog Updated')
+        return redirect(url_for('main.single_blogpost',blog_post_id=blog_post.id))
+
+    elif request.method='GET':
+        #fill the form with the post details if user has not editted 
+        form.title.data=blog_post.title
+        form.title.text=blog_post.text
+
+    return render_template('create_post',title='Update Post',form=form)    
 
