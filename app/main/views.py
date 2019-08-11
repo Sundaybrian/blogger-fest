@@ -62,3 +62,19 @@ def profile_update(uname):
     return render_template('profile/update_profile.html',profile_image=profile_image,form=form)  
 
 
+@main.route('/<uname>/blogposts')
+def user_posts(uname):
+    '''
+    View function that displays all blog posts for a single user
+    '''
+    #cycle through user posts using pages e.g if user has 40 posts we dont display all in one page
+    page=request.args.get('page',1,type=int)
+
+    #grab user if he/she exists or return 404
+    user=User.query.filter_by(uname=uname).first_or_404()
+
+    #grab posts by the specified user using the backref 
+    posts=BlogPost.get_user_posts(user.id,page)
+
+    title=f'{uname}-blogposts'
+    return render_template('user_blogposts.html',posts=posts,user=user,title=title)
