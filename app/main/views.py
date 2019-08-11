@@ -59,6 +59,6 @@ def profile_update(uname):
     
     #fetch the current profile image from the static folder and inject to the template    
     profile_image=url_for('static',filename='photos/'+current_user.profile_image)  
-    return render_template('profile.html',profile_image=profile_image,form=form)  
+    return render_template('profile/update_profile.html',profile_image=profile_image,form=form)  
 
 

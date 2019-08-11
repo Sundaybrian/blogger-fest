@@ -2,31 +2,19 @@
 
 {% block content %}
 <div class="jumbotron">
-    <div>
-        <h1>Welcome{{current_user.username}}</h1>
-        <img src="{{url_for('static',filename='photos/'+current_user.profile_image)}}" alt="">
+    <div class="card card-body">
+        <h1>{{user.username}}</h1>
+        {% if user.profile_image%}
+        <img src="{{url_for('static',filename='photos/'+user.profile_image)}}" alt="">
+        {% else%}
+        <p>No profile pic</p>
+        {%end if%}
+        {% if user==current_user%}
+        
+        <div class="card-footer">
+        <a href="{{url_for('main.profile_update',uname=user.username)}}">Update Profile</a>
+        </div>
+        {% endif %}
     </div>
 </div>
-
-<div class="update-form">
-    <form action="" method='POST' enctype="multipart/form-data">
-        {{form.hidden_tag()}}
-        <div class="form-group">
-            {{form.username.label(class='form-group')}}
-            {{form.username(class='form-control')}}
-        </div>
-        <div class="form-group">
-            {{form.email.label(class='form-group')}}
-            {{form.email(class='form-control')}}
-        </div>
-        <div class="form-group">
-            {{form.picture.label(class='form-group')}}
-            {{form.picture(class='form-control')}}
-        </div>
-        <div class="form-group">
-            {{form.submit(class='btn btn-outline-primary')}}
-        </div>
-    </form>
-</div>
-
 {% endblock content %}
