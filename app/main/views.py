@@ -100,7 +100,15 @@ def create_post():
         flash('Blog Post Created')
         return redirect(url_for('main.index'))
 
-    return render_template('create_post.html',form=form)    
+    return render_template('create_post.html',form=form)
+
+@main.route('/post/<int:blogpost_id>')
+def single_blogpost(blogpost_id):
+    '''
+    View function to view one blog post
+    '''
+    blog_post=BlogPost.query.get_or_404(blogpost_id)
+    return render_template('blogpost.html',title=blog_post.title,blog_post=blog_post)    
 
 
 
