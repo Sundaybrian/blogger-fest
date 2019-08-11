@@ -3,6 +3,7 @@ from wtforms import StringField,TextAreaField,SubmitField
 
 #for the picture upload
 from flask_wtf.file import FileField,FileAllowed
+
 from wtforms import ValidationError
 from wtforms.validators import DataRequired,Email
 from ..models import User
@@ -23,7 +24,7 @@ class CommentForm(FlaskForm):
     comment_content=TextAreaField('Comment',validators=[DataRequired()])
     submit=SubmitField('Submit')
 
-class UpdateProfile(FlaskForm):
+class UpdateProfileForm(FlaskForm):
     '''
     class to create a form to update user details
     '''
@@ -33,10 +34,12 @@ class UpdateProfile(FlaskForm):
     submit=SubmitField('Update')
 
     def validate_email(self,field):
+
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('There is an account with that email')
 
     def validate_username(self,field):
+
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('That username is taken')    
 

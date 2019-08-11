@@ -3,7 +3,7 @@ from app import db
 from . import main
 from flask_login import login_required,current_user
 from ..models import User,BlogPost,Comment,Role
-from .forms import UpdateProfile,CommentForm,PostForm
+from .forms import UpdateProfileForm,CommentForm,PostForm
 from .picture_handler import add_profile_pic
 
 
@@ -35,25 +35,30 @@ def profile_update(uname):
     '''
     view function to updtae a user profile
     '''
-    form=UpdateProfile()
+    form=UpdateProfileForm()
     if form.validate_on_submit():
 
         if form.pictures.data:
-            username=current_user.username
-            pic=add_profile_pic(form.pictures.data,username)
+            # uname=current_user.username
+            pic=add_profile_pic(form.pictures.data,uname)
 
             #setting current user image to the new uploaded pic
+            
             current_user.profile_image=pic
+            
+            
 
         #resetting user data
         current_user.username=form.username.data
         current_user.email=form.email.data 
-        db.session.commit()  
+        db.session.commit() 
+
         flash('Account Updated')
-        return redirect(url_for('.profile'))
+        return redirect(url_for('main.profile',uname=current_user.username))
 
     elif request.method=='GET':
         #user is not submitting anything
+        #leave the form values as they are
         form.username.data=current_user.username
         form.email.data=current_user.email
     
@@ -78,3 +83,24 @@ def user_posts(uname):
 
     title=f'{uname}-blogposts'
     return render_template('user_blogposts.html',posts=posts,user=user,title=title)
+
+
+@main.route('/create',methods=['GET','POST'])
+@login_required
+def create_post():
+    '''
+    View function to create a blog post
+    '''
+    form=PostForm()
+
+    if form.validate_on_submit():
+        post=BlogPost(title=form.title.data,text=form.text.data,user_id=current_user.id)
+
+        post.save_post()
+        flash('Blog Post Created')
+        return redirect(url_for('main.index'))
+
+    return render_template('create_post.html',form=form)    
+
+
+
