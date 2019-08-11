@@ -11,9 +11,11 @@ def login():
 
     if form.validate_on_submit():
         user=User.query.filter_by(email=form.email.data).first()
-        if user.verify_password(form.password.data) and user is not None:
+
+        if user is not None and user.verify_password(form.password.data):
+            
             login_user(user,form.remember.data)
-            flash('Log in Success')
+
             return redirect(request.args.get('next') or url_for('main.index'))
 
         flash('Invalid Username or Password')
@@ -26,7 +28,7 @@ def login():
 def register():
     form=RegistrationForm()
     if form.validate_on_submit():
-        user=User(email=form.email.data,username=form.username.data,password=form.password.data,role=form.role.data)
+        user=User(email=form.email.data,username=form.username.data,password=form.password.data)
 
         user.save_user()
         flash('Thanks for registering')

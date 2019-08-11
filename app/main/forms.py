@@ -5,7 +5,7 @@ from wtforms import StringField,TextAreaField,SubmitField
 from flask_wtf.file import FileField,FileAllowed
 
 from wtforms.validators import DataRequired,Email
-from . import User
+from ..models import User
 
 
 class PostForm(FlaskForm):
@@ -23,7 +23,7 @@ class CommentForm(FlaskForm):
     comment_content=TextAreaField('Comment',validators=[DataRequired()])
     submit=SubmitField('Submit')
 
-class UpdateProfile(FlaksForm):
+class UpdateProfile(FlaskForm):
     '''
     class to create a form to update user details
     '''

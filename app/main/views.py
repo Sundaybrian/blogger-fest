@@ -31,7 +31,7 @@ def profile_update(uname):
 
             #setting current user image to the new uploaded pic
             current_user.profile_image=pic
-            
+
         #resetting user data
         current_user.username=form.username.data
         current_user.email=form.email.data 
