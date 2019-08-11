@@ -84,7 +84,7 @@ class BlogPost(db.Model):
         Function that fetches all blog posts regardless of the writer
         '''
 
-        posts=BlogPost.query.order_by(BlogPost.id.desc()).all()
+        posts=BlogPost.query.order_by(BlogPost.date.desc()).all()
         return posts
 
     @classmethod

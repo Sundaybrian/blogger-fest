@@ -4,7 +4,7 @@ from . import main
 from flask_login import login_required,current_user
 from ..models import User,BlogPost,Comment,Role
 from .forms import UpdateProfileForm,CommentForm,PostForm
-from .picture_handler import add_profile_pic
+from ..picture_handler import add_profile_pic
 
 
 #views
@@ -13,7 +13,7 @@ def index():
     '''
     view root function that returns index page and its data
     '''
-    posts=BlogPost.query.all()
+    posts=BlogPost.get_posts()
     return render_template('index.html',title='Home of the brave',posts=posts,user=current_user)
 
 
@@ -29,36 +29,28 @@ def profile(uname):
     return render_template('profile/profile.html',user=user)
 
     
-@main.route('/user/<uname>/profile_update',methods=['GET','POST'])
+@main.route('/user/profile_update',methods=['GET','POST'])
 @login_required
-def profile_update(uname):
+def profile_update():
     '''
     view function to updtae a user profile
     '''
     form=UpdateProfileForm()
+
     if form.validate_on_submit():
-
         if form.pictures.data:
-            # uname=current_user.username
-            pic=add_profile_pic(form.pictures.data,uname)
-
-            #setting current user image to the new uploaded pic
-            
+            pic=add_profile_pic(form.pictures.data,current_user.username)
             current_user.profile_image=pic
-            
-            
-
-        #resetting user data
         current_user.username=form.username.data
         current_user.email=form.email.data 
         db.session.commit() 
 
         flash('Account Updated')
-        return redirect(url_for('main.profile',uname=current_user.username))
+        return redirect(url_for('main.profile_update')) 
 
     elif request.method=='GET':
         #user is not submitting anything
-        #leave the form values as they are
+        #set form field to the current users details
         form.username.data=current_user.username
         form.email.data=current_user.email
     
@@ -76,7 +68,7 @@ def user_posts(uname):
     page=request.args.get('page',1,type=int)
 
     #grab user if he/she exists or return 404
-    user=User.query.filter_by(uname=uname).first_or_404()
+    user=User.query.filter_by(username=uname).first_or_404()
 
     #grab posts by the specified user 
     posts=BlogPost.get_user_posts(user ,page)
@@ -140,7 +132,7 @@ def update_post(blog_post_id):
         form.title.data=blog_post.title
         form.title.text=blog_post.text
 
-    return render_template('create_post',title='Update Post',form=form)    
+    return render_template('create_post.html',title='Update Post',form=form)    
 
 
 @main.route('/post/<int:blog_post_id>/delete',methods=['GET','POST'])
@@ -158,3 +150,17 @@ def delete_post(blog_post_id):
     flash('Blog Deleted')
     
     return redirect(url_for('main.index'))
+
+
+@main.route('/blog/comment/new/<int:blog_post_id>',methods=['GET','POST'])
+@login_required
+def new_comment(blog_post_id):
+    '''
+    View function that returns a form to create a comment post
+    ''' 
+    post=BlogPost.query.filter_by(id=blog_post_id)
+    form=CommentForm()
+
+    if form.validate_on_submit():
+        comment_content=form.comment_content.data
+        new

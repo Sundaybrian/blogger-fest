@@ -3,18 +3,14 @@
   <div>
     <h1>Welcome {{ current_user.username }}</h1>
     <img
-      src="{{url_for('static',filename='photos/'+current_user.profile_image)}}"
+      src="{{profile_image}}"
       alt=""
     />
   </div>
 </div>
 
 <div class="update-form">
-  <form
-    action=""
-    method="POST"
-    enctype="multipart/form-data"
-  >
+  <form enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <div class="form-group">
       {{form.username.label(class='form-group')}}
@@ -26,7 +22,7 @@
     </div>
     <div class="form-group">
       {{form.pictures.label(class='form-group')}}
-      {{form.pictures(class='form-control')}}
+      {{form.pictures(class='form-control-file')}}
     </div>
     <div class="form-group">
       {{form.submit(class='btn btn-outline-primary')}}
