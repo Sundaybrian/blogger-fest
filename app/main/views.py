@@ -100,7 +100,8 @@ def single_blogpost(blog_post_id):
     View function to view one blog post
     '''
     blog_post=BlogPost.query.get_or_404(blog_post_id)
-    return render_template('blogpost.html',title=blog_post.title,blog_post=blog_post)    
+    comments=Comment.get_comments(blog_post_id)
+    return render_template('blogpost.html',title=blog_post.title,blog_post=blog_post,comments=comments)    
 
 
 
