@@ -65,8 +65,8 @@ As a user I would like:
 
 ## Known Bugs
 
-* Profile pictures,display but fail to update
-* You can't update any of your profile details once registered
+* No known Bugs
+
 
 
 ## Technologies Used
