@@ -33,15 +33,15 @@ class UpdateProfileForm(FlaskForm):
     pictures=FileField('Update Profile Pic',validators=[FileAllowed(['jpg','png'])])
     submit=SubmitField('Update')
 
-    def validate_email(self,field):
+    # def validate_email(self,field):
 
-        if User.query.filter_by(email=field.data).first():
-            raise ValidationError('There is an account with that email')
+    #     if User.query.filter_by(email=field.data).first():
+    #         raise ValidationError('There is an account with that email')
 
-    def validate_username(self,field):
+    # def validate_username(self,field):
 
-        if User.query.filter_by(username=field.data).first():
-            raise ValidationError('That username is taken')    
+    #     if User.query.filter_by(username=field.data).first():
+    #         raise ValidationError('That username is taken')    
 
 
 

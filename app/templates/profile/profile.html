@@ -17,7 +17,7 @@
         {% if user==current_user%}
         
         <div class="card-footer">
-        <a href="{{url_for('main.profile_update')}}" class="btn btn-outline-primary">Update Profile</a>
+        <a href="{{url_for('main.profile_update',uname=user.username)}}" class="btn btn-outline-primary">Update Profile</a>
         </div>
         {% endif %}
     </div>

@@ -1,5 +1,5 @@
 from flask import render_template,redirect,url_for,abort,flash,request
-from app import db
+from .. import db
 from . import main
 from flask_login import login_required,current_user
 from ..models import User,BlogPost,Comment,Role,Quote
@@ -28,29 +28,40 @@ def profile(uname):
     view function to see a single user profile
     '''
     user=User.query.filter_by(username=uname).first()
+
     if user is None:
         abort(404)
+
     return render_template('profile/profile.html',user=user)
 
     
-@main.route('/user/profile_update',methods=['GET','POST'])
+@main.route('/user/<uname>/profile_update',methods=['GET','POST'])
 @login_required
-def profile_update():
+def profile_update(uname):
     '''
     view function to updtae a user profile
     '''
+    user=User.query.filter_by(username=uname).first()
+    if user is None:
+        abort(404)
+    
+    print(user)    
+
+    
     form=UpdateProfileForm()
 
     if form.validate_on_submit():
+        
         if form.pictures.data:
-            pic=add_profile_pic(form.pictures.data,current_user.username)
+            pic=add_profile_pic(form.pictures.data,user.username)
             current_user.profile_image=pic
-        current_user.username=form.username.data
-        current_user.email=form.email.data 
+        user.username=form.username.data
+        user.email=form.email.data
+
+        db.session.add(user) 
         db.session.commit() 
 
-        flash('Account Updated')
-        return redirect(url_for('main.profile_update')) 
+        return redirect(url_for('main.profile',uname=user.username)) 
 
     elif request.method=='GET':
         #user is not submitting anything
@@ -59,7 +70,7 @@ def profile_update():
         form.email.data=current_user.email
     
     #fetch the current profile image from the static folder and inject to the template    
-    profile_image=url_for('static',filename='photos/'+current_user.profile_image)  
+    profile_image=url_for('static',filename='photos/'+user.profile_image)  
     return render_template('profile/update_profile.html',profile_image=profile_image,form=form)  
 
 
