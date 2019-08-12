@@ -1,28 +1,44 @@
-{% extends 'base.html'%}
-{% block content %}
-{% for post in posts  %}
+{% extends 'base.html'%} {% block content %} {% for post in posts %}
 
 <article class="post content-section">
-    <div class="post-body">
-        <div class="post-data">
-            <a href="{{url_for('main.profile',uname=post.author.username)}}">Author:{{post.author.username}}</a>
-            <small class="text-muted">{{post.date.strftime('%Y-%m-%d')}}</small>
-        </div>
-        <h2><a href="{{url_for('main.single_blogpost',blog_post_id=post.id)}}">{{post.title}}</a></h2>
-        <p class="post-content">{{post.text}}</p>
+    <img src="{{url_for('static',filename='photos/'+post.author.profile_image)}}" class="rounded-circle post-img" alt="">
+  <div class="post-body">
+    <div class="post-data">
+      <a href="{{url_for('main.profile',uname=post.author.username)}}"
+        >{{ post.author.username }}</a
+      >
+      <small class="text-muted">{{ post.date.strftime("%Y-%m-%d") }}</small>
     </div>
-    <div class="post-footer">
-        <a href="{{url_for('main.user_posts',uname=post.author.username)}}" class="btn btn-primary btn-sm">More posts by {{post.author.username}}</a>
-        <a href="{{url_for('main.new_comment',blog_post_id=post.id)}}" class="btn btn-secondary btn-sm">Comment</a>
-    </div>
-
+    <h2 class="post-title">
+      <a href="{{url_for('main.single_blogpost',blog_post_id=post.id)}}">{{
+        post.title
+      }}</a>
+    </h2>
+    <p class="post-content">{{ post.text }}</p>
+  </div>
+  <div class="post-footer">
+    <a
+      href="{{url_for('main.user_posts',uname=post.author.username)}}"
+      class="btn btn-primary btn-sm"
+      >posts by {{ post.author.username }}</a
+    >
+    <a
+      href="{{url_for('main.new_comment',blog_post_id=post.id)}}"
+      class="btn btn-secondary btn-sm"
+      >Comment</a
+    >
+  </div>
 </article>
 
-{% endfor %}
-
-<aside>
-    <p>{{quote.id}}</p>
-    <p>{{quote.quote}}</p>
-    <cite>{{quote.author}}</cite>
+{% endfor %} {% endblock content %} {% block aside%}
+<aside class="content-section">
+   <div class="post-body">
+    <div class="post-data">
+        <h3 class="text-center">Quote</h3>
+    </div>
+    <p class="post-content">{{ quote.quote }}</p>
+    <cite>-{{ quote.author }}</cite>
+   </div>
 </aside>
-{% endblock content %}
+
+{% endblock aside %}

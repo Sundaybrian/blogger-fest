@@ -14,6 +14,9 @@
       rel="stylesheet"
       href="{{url_for('static',filename='css/bootstrap.min.css')}}"
     />
+<!--     
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
     <link
       rel="stylesheet"
       href="{{url_for('static', filename='css/styles.css')}}"
@@ -31,7 +34,21 @@
     
     {% block navbar %} {% include 'navbar.html' %} {% endblock navbar %}
     <div class="container">
-      {% block content %} {% endblock %}
+      <div class="row">
+        <div class="col-md-8">
+            {% block content %} 
+            {% endblock %}
+        </div>
+        <div class="col-md-4">
+          <div class="post-section">
+         
+          {% block aside %}
+          
+          
+        </div>
+        {% endblock aside %}
+        </div>
+      </div>
     </div>
   </body>
 </html>

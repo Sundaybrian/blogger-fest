@@ -2,50 +2,63 @@
 
 {% block content%}
     <div class="jumbotron">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-              <h1>{{blog_post.title}}</h1>
-              <h3>Date Published:{{blog_post.date.strftime('%B %d,%Y')}}</h3>
-              <p>{{blog_post.text}}</p>
-
-              {% if blog_post.author== current_user %}
-              <div>
-                  <a href="{{url_for('main.update_post',blog_post_id=blog_post.id)}}">Update</a>
-                  <button type="btn btn-primary" name="button" data-toggle='modal' data-target='#delete_modal'>Delete</button>
-              </div>
-
-              <!-- modal -->
-              <div class="modal" tabindex="-1" role="dialog" id='delete_modal'>
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Delete Post?</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <p>Are you sure?</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                          <form action="{{url_for('main.delete_post',blog_post_id=blog_post.id)}}">
-                              <button type="submit" class="btn btn-danger">Delete</button>
-                
-                          </form>
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              <!-- modal end -->
-              
-              {% endif %}
+        <article class="post content-section">
+            <img src="{{url_for('static',filename='photos/'+blog_post.author.profile_image)}}" class="rounded-circle post-img" alt="">
+          <div class="post-body">
+            <div class="post-data">
+              <a href=""
+                >{{ blog_post.author.username }}</a
+              >
+              <small class="text-muted">{{ blog_post.date.strftime("%Y-%m-%d") }}</small>
             </div>
-            <div class="col-md-2"></div>
+            <h2>
+              <a href="">{{
+                blog_post.title
+              }}</a>
+            </h2>
+            <p class="post-content">{{ blog_post.text }}</p>
+          </div>
+
+        </article>
+                    
+
+        {% if blog_post.author== current_user %}
+        <div>
+            <a class="btn btn-sm btn-primary" href="{{url_for('main.update_post',blog_post_id=blog_post.id)}}">Update</a>
+            <button type="btn" class="btn btn-sm btn-danger"  data-toggle='modal' data-target='#delete_modal'>Delete</button>
         </div>
+
+        <!-- modal -->
+        <div class="modal" tabindex="-1" role="dialog" id='delete_modal'>
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Delete Post?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                <form action="{{url_for('main.delete_post',blog_post_id=blog_post.id)}}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+      
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- modal end -->
+        
+        {% endif %}
+            
+        
+        
     </div>
     <hr />
 

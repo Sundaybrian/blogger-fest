@@ -1,7 +1,5 @@
 import urllib.request,json
 from .models import Quote
-import threading,time
-
 
 #qoutes base url
 base_url=None
