@@ -1,18 +1,105 @@
 * {
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 :root {
   --yellow: #fb3;
   --dark: #611224;
   --dark-grey: #222;
+  --comment-grey:#6c757d;
+}
+
+/* .btn-primary {
+    color: #fff;
+    background-color:var(--dark);
+    border-color:var(--dark);
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: var(--dark-grey);
+    border-color: var(--dark-grey)
+} */
+
+body,
+html{
+
+
 }
 
 /* =============inavbar==================== */
 
 nav.navbar.navbar-light {
   margin-bottom: 32px;
+  background:var(--dark) !important;
+  padding-bottom: 8px;
+  background: rgba(0, 0, 0, .9) !important;
 }
+
+nav a.navbar-brand{
+    color: #fff !important;
+    transform: scale(0.9);
+    transition: 0.3s; 
+}
+
+
+nav a.navbar-brand:hover{
+    transform: scale(1.1);
+    color:#fb3 !important;
+    cursor: pointer;
+}
+
+
+.navbar-light .navbar-nav .active> .nav-link{
+    color: #fb3;
+}
+
+nav.navbar ul.navbar-nav{
+    text-transform: uppercase;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #fff;
+}
+
+.navbar ul.navbar-nav li.nav-item>a.nav-link {
+    position: relative;
+    padding: 1rem 0 0.5rem;
+    margin: 0 1.5rem;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+nav.navbar ul.navbar-nav li.nav-item>a.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    -webkit-transform: translateX(-50%) scaleX(0);
+    transform: translateX(-50%) scaleX(0);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    width: 100%;
+    height: 1px;
+    background-color: var(--yellow);
+    transition: -webkit-transform 250ms;
+    transition: transform 250ms;
+    transition: transform 250ms, -webkit-transform 250ms;
+}
+
+
+nav.navbar ul.navbar-nav li.nav-item>a.nav-link:hover{
+    color:#fff !important;
+}
+
+nav.navbar ul.navbar-nav li.nav-item>a.nav-link:hover::after {
+    -webkit-transform: translateX(-50%) scaleX(1);
+    transform: translateX(-50%) scaleX(1);
+}
+
 
 /* =============index===================== */
 .content-section {
