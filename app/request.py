@@ -1,5 +1,7 @@
-import urrlib.request,json
+import urllib.request,json
 from .models import Quote
+import threading,time
+
 
 #qoutes base url
 base_url=None
@@ -12,9 +14,9 @@ def get_quotes():
     '''
     Function that fetches the json response from the url
     '''    
-    get_quoutes_url=base_url
+    get_quotes_url=base_url
 
-    with urrlib.request.urlopen(get_quoutes_url) as url:
+    with urllib.request.urlopen(get_quotes_url) as url:
         get_quotes_data=url.read()
         get_quotes_response=json.loads(get_quotes_data)
 
@@ -26,7 +28,17 @@ def get_quotes():
 
             quote_obj=Quote(id,author,qoute)
     
-    return quote_obj        
+    return quote_obj   
+
+
+def setInterval(func,time):
+    '''
+    Function that calls another function after a certain interval
+    '''
+    e=threading.Event()
+    while not e.wait(time):
+        func()
+
 
 
 
