@@ -2,9 +2,10 @@ from flask import render_template,redirect,url_for,abort,flash,request
 from app import db
 from . import main
 from flask_login import login_required,current_user
-from ..models import User,BlogPost,Comment,Role
+from ..models import User,BlogPost,Comment,Role,Quote
 from .forms import UpdateProfileForm,CommentForm,PostForm
 from ..picture_handler import add_profile_pic
+from ..request import get_quotes
 
 
 #views
@@ -14,7 +15,8 @@ def index():
     view root function that returns index page and its data
     '''
     posts=BlogPost.get_posts()
-    return render_template('index.html',title='Home of the brave',posts=posts,user=current_user)
+    quotes=Quote.setInterval(get_quotes,5)
+    return render_template('index.html',title='Home of the brave',posts=posts,user=current_user,quotes=quotes)
 
 
 
