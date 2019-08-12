@@ -72,6 +72,9 @@ a.post-title:hover {
 .comment-options{
     border:1px solid #ddd;
     padding: 6px;
+    margin-bottom: 10px;
+    margin-top: -20px;
+    border-radius:0;
 }
 /* =============end blogpost===================== */
 

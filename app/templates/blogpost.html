@@ -62,29 +62,29 @@
     <div class="comment-options">  
           <a class="btn btn-sm btn-secondary text-center" href="{{url_for('main.new_comment',blog_post_id=blog_post.id)}}">
             Comment</a >   
-      </div>
+    </div>
       
       <!-- comments -->
       <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-
-        
+         
           {% for comment in comments%}
           <div class="col-12">
-              <article class="post comment-section">
-                  <div class="">
-                      <a class="mr-2"><h4> {{comment.commenter.username}} </h4></a>
+              <article class="post content-section">
+                  <img src="{{url_for('static',filename='photos/'+comment.commenter.profile_image)}}" class="rounded-circle post-img" alt="">
+                  <div class="post-body">
+                      <div class="post-data">
+                          <a class="mr-2"><h4> {{comment.commenter.username}} </h4></a>
+                      </div>
                   </div>
-                  <p class="comment-content lead">{{comment.comment_content}}</p>
+                  <p class="post-content lead">{{comment.comment_content}}</p>
 
                  {% if blog_post.author==current_user %}
                   <div>
             
-                      <button type="btn btn-primary" name="button" data-toggle='modal' data-target='#delete_comment_modal'>Delete</button>
+                      <button class="btn btn-sm btn-danger" name="button" data-toggle='modal' data-target='#delete_comment_modal'>Delete</button>
                   </div>
 
-                        <!-- delete comment modal -->
+   <!--##### ###       delete comment modal      ####### -->
               <div class="modal" tabindex="-1" role="dialog" id='delete_comment_modal'>
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -117,11 +117,9 @@
           </div>
           {% endfor %}
         
-        </div>
-        <div class="col-md-2"></div>
+        
+    
       </div>
       <!-- end comments -->
-    </div>
-
-    </div>
+ 
 {% endblock%}
