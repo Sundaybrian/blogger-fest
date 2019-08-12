@@ -1,19 +1,27 @@
 {%extends 'base.html'%}
 {% block content %}
-    <div class="jumbotron">
-        <h1>{{user.username}} BlogPosts</h1>
-        <img src="{{url_for('static',filename='photos/'+user.profile_image)}}" alt="">
-    </div>
-
-    
+      
     <div class="user_blogposts.items">
         {% for post in posts.items %}
-        <h2><a href="{{url_for('main.single_blogpost',blog_post_id=post.id)}}">{{post.title}}</a></h2>
-        <p>
-            Author<a href="{{url_for('main.user_posts',uname=post.author.username)}}">{{post.author}}</a>
-        </p>
-        <p class="text-muted">{{post.date.strftime('%Y-%m-%d')}}</p>
-        <p>{{post.text}}</p>
+
+        <article class="post content-section">
+                <img src="{{url_for('static',filename='photos/'+user.profile_image)}}" class="rounded-circle post-img" alt="">
+              <div class="post-body">
+                <div class="post-data">
+                <a href="{{url_for('main.user_posts',uname=post.author.username)}}">{{post.author}}</a>
+                  <small class="text-muted">{{ post.date.strftime("%Y-%m-%d") }}</small>
+                </div>
+                <h2 class="post-title"><a href="{{url_for('main.single_blogpost',blog_post_id=post.id)}}">{{post.title}}</a></h2>
+                <p class="post-content">{{ post.text }}</p>
+              </div>
+              <div class="post-footer">
+                <a
+                  href="{{url_for('main.new_comment',blog_post_id=post.id)}}"
+                  class="btn btn-secondary btn-sm"
+                  >Comment</a
+                >
+              </div>
+            </article>
     
         {% endfor %}
     </div>
@@ -45,6 +53,21 @@
     </nav>
     <!-- end pagination -->
 
-
-
 {% endblock content %}
+
+{% block aside %}
+
+    <aside class="content-section">
+        <img src="{{url_for('static',filename='photos/'+user.profile_image)}}" class="rounded-circle post-img" alt="">
+        <div class="post-body">
+            <div class="post-data">
+            </div>
+
+            <h3 class="post-title">
+        <a>{{user.username}} BlogPosts</a>
+</h3>
+            
+        </div>
+    </aside>
+
+{% endblock aside %}
