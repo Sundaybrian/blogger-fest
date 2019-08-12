@@ -135,7 +135,7 @@ def update_post(blog_post_id):
 
         #fill the form with the post details if user has not editted 
         form.title.data=blog_post.title
-        form.title.text=blog_post.text
+        form.text.data=blog_post.text
 
     return render_template('create_post.html',title='Update Post',form=form)    
 
