@@ -169,4 +169,21 @@ def new_comment(blog_post_id):
         new_comment.save_comment()
         return redirect(url_for('main.single_blogpost',blog_post_id=blog_post_id))
 
-    return render_template('new_comment.html',title='New Comment',form=form)    
+    return render_template('new_comment.html',title='New Comment',form=form)   
+
+
+@main.route('/<int:blog_post_id>/comment/<int:comment_id>/delete',methods=['GET','POST'])
+@login_required
+def delete_comment(comment_id):
+    '''
+    View function to delete a post
+    '''
+    comment=Comment.query.get(comment_id)
+    blog_post=BlogPost.query.get_or_404(blog_post_id)
+    if blog_post.author != current_user:
+        abort(403)
+        
+    db.session.delete(comment)
+    db.session.commit()
+    
+    return redirect(url_for('main.single_blogpost',blog_post_id=blog_post_id))    
