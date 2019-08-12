@@ -13,7 +13,8 @@ def configure_request(app):
 def get_quotes():
     '''
     Function that fetches the json response from the url
-    '''    
+    '''  
+
     get_quotes_url=base_url
 
     with urllib.request.urlopen(get_quotes_url) as url:
@@ -31,13 +32,24 @@ def get_quotes():
     return quote_obj   
 
 
-def setInterval(func,time):
-    '''
-    Function that calls another function after a certain interval
-    '''
-    e=threading.Event()
-    while not e.wait(time):
-        func()
+# def setInterval(func,time):
+#     '''
+#     Function that calls another function after a certain interval
+#      not working!!!!!!!!!!!!
+#     '''
+#     e=threading.Event()
+#     while not e.wait(time):
+#         func()
+
+# def reloadapi():
+#     '''
+#     Function to reload the get_quotes function
+#     '''
+#     while True:
+#         get_quotes()
+
+#         time.sleep(1)
+
 
 
 

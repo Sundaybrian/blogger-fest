@@ -5,7 +5,7 @@ from flask_login import login_required,current_user
 from ..models import User,BlogPost,Comment,Role,Quote
 from .forms import UpdateProfileForm,CommentForm,PostForm
 from ..picture_handler import add_profile_pic
-from ..request import get_quotes,setInterval
+from ..request import get_quotes
 
 
 #views
@@ -15,9 +15,9 @@ def index():
     view root function that returns index page and its data
     '''
     posts=BlogPost.get_posts()
-    qquote=get_quotes()
-    quote=setInterval(qquote,5)
-    # quote=get_quotes()
+    # qquote=get_quotes()
+    # quote=reloadapi()
+    quote=get_quotes()
     return render_template('index.html',title='Home of the brave',posts=posts,user=current_user,quote=quote)
 
 
