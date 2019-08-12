@@ -1,4 +1,5 @@
 {%extends 'base.html'%} 
+{% import 'macros.html' as macro%}
 
 {% block content%}
     <div class="jumbotron">
@@ -46,5 +47,31 @@
             </div>
             <div class="col-md-2"></div>
         </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="comment-title">
+          
+          <a class="btn btn-primary btn-sm text-center" href="{{url_for('main.new_comment',blog_post_id=blog_post.id)}}">
+            Add Comment</a >
+        </div>
+    
+        <hr/>
+    
+      </div>
+      
+      <!-- comments -->
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          {{ macro.displayComments(comments) }}
+        
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <!-- end comments -->
+    </div>
+
     </div>
 {% endblock%}
