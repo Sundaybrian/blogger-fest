@@ -3,7 +3,7 @@ from config import config_options
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 
 
 db=SQLAlchemy()
@@ -11,7 +11,7 @@ login_manager=LoginManager()
 login_manager.session_protection='strong'
 login_manager.login_view='auth.login'
 bootstrap=Bootstrap()
-toolbar = DebugToolbarExtension()
+# toolbar = DebugToolbarExtension()
 
 def create_app(config_name):
     #Intializing application
@@ -24,7 +24,7 @@ def create_app(config_name):
     db.init_app(app)
     login_manager.init_app(app)
     bootstrap.init_app(app)
-    toolbar.init_app(app)
+    # toolbar.init_app(app)
 
 
     # registering the blueprint
