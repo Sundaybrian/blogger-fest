@@ -65,18 +65,19 @@
     </div>
       
       <!-- comments -->
-      <div class="row">
+      
          
           {% for comment in comments%}
-          <div class="col-12">
-              <article class="post content-section">
+          
+              <article class="comment-section">
                   <img src="{{url_for('static',filename='photos/'+comment.commenter.profile_image)}}" class="rounded-circle post-img" alt="">
-                  <div class="post-body">
-                      <div class="post-data">
-                          <a class="mr-2"><h4> {{comment.commenter.username}} </h4></a>
-                      </div>
+                  <div class="comment-body">
+                 
+                  <p>
+                      <a class="mr-1 comment-user-name text-primary" href="{{url_for('main.profile',uname=comment.commenter.username)}}"> {{comment.commenter.username}} </a>
+                    {{comment.comment_content}}</p>
+
                   </div>
-                  <p class="post-content lead">{{comment.comment_content}}</p>
 
                  {% if blog_post.author==current_user %}
                   <div>
@@ -114,12 +115,16 @@
                  {% endif %}
                   
               </article>
-          </div>
+                <!-- <div align='right'>
+            
+                      <button class="btn btn-sm btn-danger" name="button" data-toggle='modal' data-target='#delete_comment_modal'>Delete</button>
+                  </div> -->
+          
           {% endfor %}
         
         
     
-      </div>
+      
       <!-- end comments -->
  
 {% endblock%}
