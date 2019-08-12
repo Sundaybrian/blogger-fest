@@ -1,10 +1,10 @@
 {% extends 'base.html'%} {% block content %}
 <div class="jumbotron">
   <div>
-    <h1>Welcome {{ current_user.username }}</h1>
+    <h1 class="post-title"><a href="">Welcome {{ current_user.username }} to profile update</a> </h1>
     <img
       src="{{profile_image}}"
-      alt=""
+      alt="" class="post-img rounded-circle"
     />
   </div>
 </div>
