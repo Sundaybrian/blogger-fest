@@ -1,4 +1,4 @@
-# CrystaBloges
+# BlogerFest
 
 ### 09/08/2019
 
@@ -6,7 +6,7 @@
 
 ## Description
 
-This is a flask web app that allows users to post blogs,users can comment on them and the owner of the post can delete user comments 
+This is a flask web app that allows users to post blogs,users can comment on them and the owner of the post can delete user comments,update blogs and or delete blogs.Users can also enjoy random funny quotes as they read the blogs
 
 ## User Stories
 
@@ -41,6 +41,7 @@ As a user I would like:
 * `$ git clone` [Bloger Fest](https://github.com/Sundaybrian/blogger-fest)
 * `$ cd bloger-fest`
 * `$ touch start.sh ` to create the start.sh file
+
     ```python
     #set your start.sh as follows and remember to gitignore this file
     export SECRET_KEY='<type some gibberish or random hex values>'
@@ -64,8 +65,8 @@ As a user I would like:
 
 ## Known Bugs
 
-Profile pictures,display but fail to update
-You can't update any of your profile details once registered
+* Profile pictures,display but fail to update
+* You can't update any of your profile details once registered
 
 
 ## Technologies Used
