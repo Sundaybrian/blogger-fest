@@ -1,26 +1,24 @@
 {%extends 'base.html'%} 
 
 {% block content%}
-    <div class="jumbotron">
+    
         <article class="post content-section">
             <img src="{{url_for('static',filename='photos/'+blog_post.author.profile_image)}}" class="rounded-circle post-img" alt="">
           <div class="post-body">
             <div class="post-data">
-              <a href=""
+              <a href="{{url_for('main.profile',uname=blog_post.author.username)}}"
                 >{{ blog_post.author.username }}</a
               >
               <small class="text-muted">{{ blog_post.date.strftime("%Y-%m-%d") }}</small>
             </div>
-            <h2>
-              <a href="">{{
+            <h2 class="post-title">
+              <a href="#">{{
                 blog_post.title
               }}</a>
             </h2>
             <p class="post-content">{{ blog_post.text }}</p>
           </div>
-
-        </article>
-                    
+          <div class="post-footer">
 
         {% if blog_post.author== current_user %}
         <div>
@@ -56,21 +54,14 @@
         <!-- modal end -->
         
         {% endif %}
-            
-        
-        
-    </div>
-    <hr />
 
-    <div class="row">
-        <div class="comment-title">
-          
-          <a class="btn btn-primary btn-sm text-center" href="{{url_for('main.new_comment',blog_post_id=blog_post.id)}}">
-            Add Comment</a >
-        </div>
-    
-        <hr/>
-    
+          </div>
+
+        </article>
+
+    <div class="comment-options">  
+          <a class="btn btn-sm btn-secondary text-center" href="{{url_for('main.new_comment',blog_post_id=blog_post.id)}}">
+            Comment</a >   
       </div>
       
       <!-- comments -->
