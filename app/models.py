@@ -2,6 +2,7 @@ from . import db,login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+import threading
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -133,6 +134,17 @@ class Quote:
         self.id=id
         self.author=author
         self.quote=quote
+
+    @classmethod
+    def setInterval(func,time):
+        '''
+        Function that calls another function after a certain interval
+        '''
+        e=threading.Event()
+        while not e.wait(time):
+            func()
+            
+
 
         
 

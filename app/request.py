@@ -1,4 +1,5 @@
 import urrlib.request,json
+from .models import Quote
 
 #qoutes base url
 base_url=None
