@@ -163,4 +163,9 @@ def new_comment(blog_post_id):
 
     if form.validate_on_submit():
         comment_content=form.comment_content.data
-        new
+        new_comment=Comment(comment_content=comment_content,post_id=blog_post_id,user_id=current_user.id)
+
+        new_comment.save_comment()
+        return redirect(url_for('single_blogpost',blog_post_id=blog_post_id))
+
+    return render_template('new_comment.html',title='New Comment',form=form)    
