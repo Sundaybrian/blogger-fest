@@ -174,7 +174,7 @@ def new_comment(blog_post_id):
 
 @main.route('/<int:blog_post_id>/comment/<int:comment_id>/delete',methods=['GET','POST'])
 @login_required
-def delete_comment(comment_id):
+def delete_comment(blog_post_id,comment_id):
     '''
     View function to delete a post
     '''
