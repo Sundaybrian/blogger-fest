@@ -4,7 +4,7 @@ class Config:
     '''
     General Configurations parent class
     '''
-
+    QOUTES_BASE_URL='http://quotes.stormconsultancy.co.uk/random.json'
     SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://sundaypriest:belter@localhost/blogfest'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
