@@ -4,13 +4,14 @@
 
  <div class="card mb-3" style="width: 18rem;">
 
-    <img src="..." class="card-img-top" alt="...">
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
     <div class="card-body">
         <h5 class="card-title"><a href="{{url_for('main.single_blogpost',blog_post_id=post.id)}}">{{post.title}}</a></h5>
         <a href="{{url_for('main.profile',uname=post.author.username)}}">Author:{{post.author.username}}</a>
         <p class="text-muted">Published:{{post.date.strftime('%Y-%m-%d')}}</p>
         <p class="card-text">{{post.text}}</p>
         <a href="{{url_for('main.user_posts',uname=post.author.username)}}" class="btn btn-primary btn-sm">More posts by {{post.author.username}}</a>
+        <a href="{{url_for('main.new_comment',blog_post_id=post.id)}}" class="btn btn-secondary btn-sm">Comment</a>
     </div>
  </div>
 

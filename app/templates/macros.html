@@ -1,0 +1,14 @@
+<!-- Displaying Comments macro -->
+{% macro displayComments(comments_list) %}
+    {% for comment in comments_list %}
+    <div class="col-12">
+        <article class="post comment-section">
+            <div class="">
+                <a class="mr-2"><h4> {{comment.commenter.username}} </h4></a>
+            </div>
+            <p class="comment-content lead">{{comment.comment_content}}</p>
+            
+        </article>
+    </div>
+    {% endfor %}
+{% endmacro %}
